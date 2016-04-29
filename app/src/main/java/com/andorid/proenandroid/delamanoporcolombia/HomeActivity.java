@@ -1,8 +1,10 @@
 package com.andorid.proenandroid.delamanoporcolombia;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,13 +21,17 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
+import com.google.android.gms.common.api.Status;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,  GoogleApiClient.ConnectionCallbacks,
@@ -35,7 +41,7 @@ public class HomeActivity extends AppCompatActivity
 
         /* Código de petición utilizado para las interacciones con la identificación del usuario. */
         private static final int RC_SIGN_IN = 0;
-         private static final String TAG = "FAIL CONECTION" ;
+    private static final String TAG = "FAIL CONECTION";
     /* Cliente utilizado para interactuar con Google APIs. */
         private GoogleApiClient mGoogleApiClient;
         /* Indica si existe una resolución de ConnectionResult pendiente */
@@ -46,8 +52,12 @@ public class HomeActivity extends AppCompatActivity
 
         /* TextView para mostrar el estado actual (identificado, no identificado, desconectado, etc.) */
         private TextView mStatus;
+    /* Claves para almacenar variables de instancias en savedInstanceState */
+    private static final String KEY_IS_RESOLVING = "is_resolving";
+    private static final String KEY_SHOULD_RESOLVE = "should_resolve";
 
         private NavigationView navigationView;
+    private ProgressDialog connectionProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +66,19 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Restauramos a partir de los datos almacenados
+        if (savedInstanceState != null) {
+            mIsResolving = savedInstanceState.getBoolean(KEY_IS_RESOLVING);
+            mShouldResolve = savedInstanceState.getBoolean(KEY_SHOULD_RESOLVE);
+        }
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
         //#########################################################################################
         // Crea el objeto GoogleApiClient con acceso a la información básica del perfil
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Plus.API)
-                .addScope(new Scope(Scopes.PROFILE))
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
         // Configuramos el TextView para el estado actual
@@ -88,6 +104,8 @@ public class HomeActivity extends AppCompatActivity
          navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        connectionProgressDialog = new ProgressDialog(this);
+        connectionProgressDialog.setMessage("Conectando...");
 
     }
 
@@ -124,8 +142,9 @@ public class HomeActivity extends AppCompatActivity
             // intente conectar en el futuro con ella automáticamente.
 
             if (mGoogleApiClient.isConnected()) {
-                Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-                mGoogleApiClient.disconnect();
+                //Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+
+                signOut();
             }
 
             updateUI(false);
@@ -160,7 +179,10 @@ public class HomeActivity extends AppCompatActivity
             mStatus.setText("Entrando!!");
 
             mShouldResolve = true;
-            mGoogleApiClient.connect();
+            connectionProgressDialog.show();
+            signIn();
+            updateUI(true);
+
 
 
         }
@@ -245,39 +267,53 @@ public class HomeActivity extends AppCompatActivity
 
         if (requestCode == RC_SIGN_IN) {
             // Si la resolución del error no fue satisfactoria no debemos intentar resolver errores sucesivos
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
             if (resultCode != RESULT_OK) {
                 mShouldResolve = false;
+
             }
 
             mIsResolving = false;
-            mGoogleApiClient.connect();
+            //mGoogleApiClient.connect();
+
+
         }
     }
 
+    //Manipulacion del resultado
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            String personName = acct.getDisplayName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+
+            mStatus.setText(personName);
+            mStatus.append(personEmail);
+            updateUI(true);
+        } else {
+            // Signed out, show unauthenticated UI.
+            updateUI(false);
+        }
+    }
 
 
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {
             // Muestra el nombre del usuario identificado
-            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-            if (currentPerson != null) {
-                String name = currentPerson.getDisplayName();
-                mStatus.setText((name));
-            } else {
-                //Log.w(TAG, getString(R.string.error_null_person));
-                mStatus.setText("Error !!");
-            }
 
-            // Modifica la visibilidad del botón
-            navigationView.getMenu().getItem(6).setVisible(false);
-            findViewById(R.id.action_disconect).setVisibility(View.VISIBLE);
+            // findViewById(R.id.action_disconect).setVisibility(View.VISIBLE);
         } else {
             // Muestra el mensaje de no identificado
-            mStatus.setText("No actualiza");
+            mStatus.setText("Sin registrar");
             //TODO falta mejorar para la visibiliadad de los items
 
-            navigationView.getMenu().getItem(6).setVisible(true);
-
+            //navigationView.getMenu().getItem(6).setVisible(true);
+            //
             // Modifica la visibilidad del botón
             //findViewById(R.id.sign_in_button).setEnabled(true);
            //findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
@@ -285,11 +321,27 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
 
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // [START_EXCLUDE]
+                        updateUI(false);
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
     @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+
     }
 
     @Override
