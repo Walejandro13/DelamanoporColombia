@@ -42,29 +42,29 @@ public class HomeActivity extends AppCompatActivity
         View.OnClickListener {
 
 
-        /* Código de petición utilizado para las interacciones con la identificación del usuario. */
-        private static final int RC_SIGN_IN = 0;
+    /* Código de petición utilizado para las interacciones con la identificación del usuario. */
+    private static final int RC_SIGN_IN = 0;
     private static final String TAG = "FAIL CONECTION";
     /* Cliente utilizado para interactuar con Google APIs. */
-        private GoogleApiClient mGoogleApiClient;
-        /* Indica si existe una resolución de ConnectionResult pendiente */
-        private boolean mIsResolving = false;
+    private GoogleApiClient mGoogleApiClient;
+    /* Indica si existe una resolución de ConnectionResult pendiente */
+    private boolean mIsResolving = false;
 
-        /* Indica si debemos resolver automáticamente ConnectionResults cuando sea posible */
-        private boolean mShouldResolve = false;
+    /* Indica si debemos resolver automáticamente ConnectionResults cuando sea posible */
+    private boolean mShouldResolve = false;
 
-        /* TextView para mostrar el estado actual (identificado, no identificado, desconectado, etc.) */
-        private TextView mStatus;
+    /* TextView para mostrar el estado actual (identificado, no identificado, desconectado, etc.) */
+    private TextView mStatus;
     /* Claves para almacenar variables de instancias en savedInstanceState */
     private static final String KEY_IS_RESOLVING = "is_resolving";
     private static final String KEY_SHOULD_RESOLVE = "should_resolve";
 
-        private NavigationView navigationView;
+    private NavigationView navigationView;
     private ProgressDialog connectionProgressDialog;
     //Manejo de preferencia
     public static final String MyPREF = "UserData";
     public static final String Name = "nameUser";
-    public static final String Phone = "phoneUser";
+    public static final String Image = "imageUser";
     public static final String Email = "emailUser";
 
     @Override
@@ -165,6 +165,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_perfil) {
+            //Intent intent = new Intent()
 
         } else if (id == R.id.nav_gallery) {
 
@@ -300,7 +301,7 @@ public class HomeActivity extends AppCompatActivity
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString(Name, personName);
             editor.putString(Email, personEmail);
-            editor.putString(Email, personPhoto.toString());
+            editor.putString(Image, personPhoto.toString());
             editor.apply();
             mStatus.setText(personName + "\n");
             mStatus.append("\n   " + personEmail);
