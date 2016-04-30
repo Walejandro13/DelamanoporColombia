@@ -165,7 +165,8 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_perfil) {
-            //Intent intent = new Intent()
+
+            // Intent intent = new Intent()
 
         } else if (id == R.id.nav_gallery) {
 
