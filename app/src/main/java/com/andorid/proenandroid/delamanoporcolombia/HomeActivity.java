@@ -1,9 +1,11 @@
 package com.andorid.proenandroid.delamanoporcolombia;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +31,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
@@ -58,6 +61,11 @@ public class HomeActivity extends AppCompatActivity
 
         private NavigationView navigationView;
     private ProgressDialog connectionProgressDialog;
+    //Manejo de preferencia
+    public static final String MyPREF = "UserData";
+    public static final String Name = "nameUser";
+    public static final String Phone = "phoneUser";
+    public static final String Email = "emailUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +111,6 @@ public class HomeActivity extends AppCompatActivity
 
          navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-        connectionProgressDialog = new ProgressDialog(this);
-        connectionProgressDialog.setMessage("Conectando...");
-
     }
 
     @Override
@@ -287,14 +290,22 @@ public class HomeActivity extends AppCompatActivity
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
+
             GoogleSignInAccount acct = result.getSignInAccount();
             String personName = acct.getDisplayName();
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            SharedPreferences sharedpreferences = getSharedPreferences(MyPREF, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Name, personName);
+            editor.putString(Email, personEmail);
+            editor.putString(Email, personPhoto.toString());
+            editor.apply();
+            mStatus.setText(personName + "\n");
+            mStatus.append("\n   " + personEmail);
 
-            mStatus.setText(personName);
-            mStatus.append(personEmail);
+            mStatus.append("\n");
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
@@ -345,8 +356,43 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
 
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if (opr.isDone()) {
+            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+            // and the GoogleSignInResult will be available instantly.
+            Log.d(TAG, "Got cached sign-in");
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            // If the user has not previously signed in on this device or the sign-in has expired,
+            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+            // single sign-on will occur in this branch.
+            showProgressDialog();
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    hideProgressDialog();
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
+    private void showProgressDialog() {
+        if (connectionProgressDialog == null) {
+            connectionProgressDialog = new ProgressDialog(this);
+            connectionProgressDialog.setMessage("Cargando...");
+            connectionProgressDialog.setIndeterminate(true);
+        }
+
+        connectionProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (connectionProgressDialog != null && connectionProgressDialog.isShowing()) {
+            connectionProgressDialog.hide();
+        }
     }
 
     @Override

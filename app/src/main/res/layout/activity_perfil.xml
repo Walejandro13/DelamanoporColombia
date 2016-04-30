@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.andorid.proenandroid.delamanoporcolombia.PerfilActivity">
+
+
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:src="@drawable/fondo1"
+        app:siBorderWidth="6dp"
+        app:siBorderColor="@color/colorPrimaryDark"
+        android:id="@+id/Improf"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Nombre Usuario"
+        android:id="@+id/tvname"
+        android:layout_below="@+id/Improf"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/Improf"
+        android:layout_margin="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Correo Usuario"
+        android:id="@+id/tvcorreo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/tvname"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/tvname" />
+
+
+</RelativeLayout>
