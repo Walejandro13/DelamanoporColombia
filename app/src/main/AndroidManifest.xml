@@ -22,7 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PerfilActivity"></activity>
+        <activity android:name=".PerfilActivity"
+
+            android:label="@string/st_perfil"
+            android:parentActivityName=".HomeActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.andorid.proenandroid.delamanoporcolombia.HomeActivity" />
+    </activity>
     </application>
 
 </manifest>

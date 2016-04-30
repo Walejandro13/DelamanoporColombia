@@ -166,7 +166,8 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_perfil) {
 
-            // Intent intent = new Intent()
+             Intent intent = new Intent(this,PerfilActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
 
@@ -304,10 +305,11 @@ public class HomeActivity extends AppCompatActivity
             editor.putString(Email, personEmail);
             editor.putString(Image, personPhoto.toString());
             editor.apply();
+
             mStatus.setText(personName + "\n");
             mStatus.append("\n   " + personEmail);
 
-            mStatus.append("\n");
+            mStatus.append("\n" + personPhoto.toString());
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
