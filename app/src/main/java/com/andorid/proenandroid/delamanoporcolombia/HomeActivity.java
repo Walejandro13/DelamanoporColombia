@@ -104,6 +104,7 @@ public class HomeActivity extends AppCompatActivity
          navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         connectionProgressDialog = new ProgressDialog(this);
         connectionProgressDialog.setMessage("Conectando...");
 
@@ -179,7 +180,7 @@ public class HomeActivity extends AppCompatActivity
             mStatus.setText("Entrando!!");
 
             mShouldResolve = true;
-            connectionProgressDialog.show();
+            // connectionProgressDialog.show();
             signIn();
             updateUI(true);
 
@@ -305,13 +306,17 @@ public class HomeActivity extends AppCompatActivity
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {
             // Muestra el nombre del usuario identificado
+            // navigationView.getMenu().findItem(R.id.action_disconect).setVisible(true);
 
+            navigationView.getMenu().findItem(R.id.sign_in_button).setVisible(false);
             // findViewById(R.id.action_disconect).setVisibility(View.VISIBLE);
         } else {
             // Muestra el mensaje de no identificado
             mStatus.setText("Sin registrar");
             //TODO falta mejorar para la visibiliadad de los items
 
+
+            navigationView.getMenu().findItem(R.id.sign_in_button).setVisible(true);
             //navigationView.getMenu().getItem(6).setVisible(true);
             //
             // Modifica la visibilidad del botón
