@@ -5,33 +5,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.andorid.proenandroid.delamanoporcolombia.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User!"
-        android:id="@+id/status"/>
-
-    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:id="@+id/status"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollViews">
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView"
-            android:layout_gravity="left|top">
+            android:layout_height="match_parent">
 
-            
-        </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </FrameLayout>
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen"
+                    android:background="@drawable/manizales" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen2"
+                    android:layout_below="@id/btn_imagen"
+                    android:background="@drawable/medellin"
+                    android:layout_marginTop="5dp"/>
 
 
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen3"
+                    android:layout_below="@id/btn_imagen2"
+                    android:background="@drawable/cali"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen4"
+                    android:layout_below="@id/btn_imagen3"
+                    android:background="@drawable/cartagena"
+                    android:layout_marginTop="5dp"/>
+
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen5"
+                    android:layout_below="@id/btn_imagen4"
+                    android:background="@drawable/amazonas"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen6"
+                    android:layout_below="@id/btn_imagen5"
+                    android:background="@drawable/san_andres"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen7"
+                    android:layout_below="@id/btn_imagen6"
+                    android:background="@drawable/santa_marta"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen8"
+                    android:layout_below="@id/btn_imagen7"
+                    android:background="@drawable/barranquilla"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen9"
+                    android:layout_below="@id/btn_imagen8"
+                    android:background="@drawable/bogota"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </ScrollView>
 </RelativeLayout>
