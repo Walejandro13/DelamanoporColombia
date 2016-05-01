@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,13 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URI;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,  GoogleApiClient.ConnectionCallbacks,
@@ -66,6 +76,7 @@ public class HomeActivity extends AppCompatActivity
     public static final String Name = "nameUser";
     public static final String Image = "imageUser";
     public static final String Email = "emailUser";
+    private ImageView imgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +122,7 @@ public class HomeActivity extends AppCompatActivity
 
          navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        imgView= (ImageView) findViewById(R.id.imagView);
     }
 
     @Override
@@ -172,7 +184,8 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_nearagent) {
-
+            Intent intent = new Intent(this,MapsAgenActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -305,18 +318,53 @@ public class HomeActivity extends AppCompatActivity
             editor.putString(Email, personEmail);
             editor.putString(Image, personPhoto.toString());
             editor.apply();
-
+            String hola= personPhoto.getEncodedSchemeSpecificPart();
+           personPhoto.getEncodedQuery();
             mStatus.setText(personName + "\n");
             mStatus.append("\n   " + personEmail);
 
             mStatus.append("\n" + personPhoto.toString());
+            mStatus.append("\n" + personPhoto.getQuery());
+          //  descargarImagen(personPhoto.toString());
+            //
+            //imgView.setImageBitmap(GetURLBitmap());
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
         }
     }
+   //// ##################
+   private Bitmap descargarImagen (String imageHttpAddress){
+       URL imageUrl = null;
+       Bitmap imagen = null;
+       try{
+           imageUrl = new URL(imageHttpAddress);
+           HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+           conn.setRequestMethod("GET");
+            conn.setDoOutput(true);
+          // conn.connect();
+           imagen = BitmapFactory.decodeStream(conn.getInputStream());
+       }catch(IOException ex){
+           ex.printStackTrace();
+       }
 
+       return imagen;
+   }
+
+    ////////////////////#################3
+    public static Bitmap GetURLBitmap(URL url) {
+        try {
+            URLConnection conn = url.openConnection();
+            conn.connect();
+            InputStream isCover = conn.getInputStream();
+            Bitmap bmpCover = BitmapFactory.decodeStream(isCover);
+            isCover.close();
+            return bmpCover;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {

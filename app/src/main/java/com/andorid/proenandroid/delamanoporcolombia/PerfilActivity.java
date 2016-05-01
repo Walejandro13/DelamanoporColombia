@@ -14,8 +14,10 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 
 public class PerfilActivity extends AppCompatActivity {
 
@@ -38,21 +40,21 @@ public class PerfilActivity extends AppCompatActivity {
 
         //HttpURLConnection conn = null;
 
-        URL imageUrl = null;
-        try {
-            imageUrl = new URL("http://jonsegador.com/wp-content/apezz.png");
-            HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
-            conn.connect();
-            Bitmap loadedImage = BitmapFactory.decodeStream(conn.getInputStream());
-            profileImage.setImageBitmap(loadedImage);
-        } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "Error cargando la imagen: "+e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-    }
 
-       // profileImage.setImageURI(Uri.parse(prefs.getString("imageUser",null)));
+        Uri imgUri= Uri.parse(prefs.getString("imageUser",null)  );
+        profileImage.setImageURI(null);
+        profileImage.setImageURI(imgUri);
+        String url= prefs.getString("imageUser",null);
+
+        //profileImage.setImageBitmap(GetURLBitmap(url)));
 
 
     }
+
+
+    }
+
+
+
+
 
