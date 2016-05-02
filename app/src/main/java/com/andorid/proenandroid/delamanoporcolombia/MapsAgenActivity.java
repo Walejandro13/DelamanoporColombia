@@ -13,13 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.location.LocationListener;
+import android.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+//import android.location.LocationListener;
 
 public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -33,6 +34,7 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
     private TextView tView;
     private Button go;
     private Button actual;
+    private LatLng loc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +51,10 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         actual = (Button) findViewById(R.id.bActual);
         y = 0;
 
+
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
+   @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
@@ -85,22 +78,51 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         mMap.setMyLocationEnabled(true);
         LatLng udea = new LatLng(6.2675852, -75.5697014);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(udea));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
-        mMap.addMarker(new MarkerOptions().position(udea).title("Aqui estoy").snippet("App para la expo"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(udea, 16.0f));
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+        mMap.addMarker(new MarkerOptions().position(udea).title("Ubicación actual").snippet("De la mano por colombia"));
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                makeUseOfNewLocation(location);
-                y = 0;
+                //makeUseOfNewLocation(location);
+                //y = 0;
+                 loc = new LatLng(location.getLatitude(), location.getLongitude());
+                //mMarker =
+               // makeUseOfNewLocation(location);
+               //mMap.addMarker(new MarkerOptions().position(loc).title("Ubicación actual").snippet("De la mano por colombia"));
+                //TODO falta mejorar para no mover a medida que el usuario lo hace
+                if(mMap != null){
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                    tView.setText("Longitud: " + location.getLatitude() + location.getLongitude());
+
+                }
             }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+
 
         };
 
-       //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
-       /// Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+       locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,3000,locationListener);
+       //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
+       // Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         //makeUseOfNewLocation(location);
     }
 //TODO realizar cambios para poder implementar esta actividad
@@ -138,6 +160,7 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
             return;
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         makeUseOfNewLocation(location);
     }
 
