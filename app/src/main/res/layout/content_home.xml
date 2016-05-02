@@ -17,11 +17,99 @@
         android:layout_height="wrap_content"
         android:text="User!"
         android:id="@+id/status"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollViews">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imagView"/>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen"
+                    android:background="@drawable/manizales" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen2"
+                    android:layout_below="@id/btn_imagen"
+                    android:background="@drawable/medellin"
+                    android:layout_marginTop="5dp"/>
+
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen3"
+                    android:layout_below="@id/btn_imagen2"
+                    android:background="@drawable/cali"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen4"
+                    android:layout_below="@id/btn_imagen3"
+                    android:background="@drawable/cartagena"
+                    android:layout_marginTop="5dp"/>
+
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen5"
+                    android:layout_below="@id/btn_imagen4"
+                    android:background="@drawable/amazonas"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen6"
+                    android:layout_below="@id/btn_imagen5"
+                    android:background="@drawable/san_andres"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen7"
+                    android:layout_below="@id/btn_imagen6"
+                    android:background="@drawable/santa_marta"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen8"
+                    android:layout_below="@id/btn_imagen7"
+                    android:background="@drawable/barranquilla"
+                    android:layout_marginTop="5dp"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_imagen9"
+                    android:layout_below="@id/btn_imagen8"
+                    android:background="@drawable/bogota"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </ScrollView>
 </RelativeLayout>
