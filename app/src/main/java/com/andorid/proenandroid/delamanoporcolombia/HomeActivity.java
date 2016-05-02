@@ -122,7 +122,7 @@ public class HomeActivity extends AppCompatActivity
 
          navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        imgView= (ImageView) findViewById(R.id.imagView);
+
     }
 
     @Override
@@ -214,6 +214,10 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+
+        switch (v.getId()){
+
+        }
 
     }
 

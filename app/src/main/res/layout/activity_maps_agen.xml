@@ -14,20 +14,23 @@
             android:inputType="numberDecimal|numberSigned"
             android:gravity="center"
             android:hint="Latitud"
-            android:id="@+id/eLat"/>
+            android:id="@+id/eLat"
+            android:visibility="gone"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal|numberSigned"
             android:gravity="center"
             android:hint="Longitud"
-            android:id="@+id/eLon"/>
+            android:id="@+id/eLon"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
