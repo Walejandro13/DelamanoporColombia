@@ -20,13 +20,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-//import android.location.LocationListener;
+import com.andorid.proenandroid.delamanoporcolombia.Agencias;
+
+import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getMedellin;
 
 public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
-
+    private Agencia[] agencias;
     private double dlongi, dlati;
     private int y;
     private TextView longi;
@@ -50,6 +52,7 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         go = (Button) findViewById(R.id.bGo);
         actual = (Button) findViewById(R.id.bActual);
         y = 0;
+        agencias = getMedellin();
 
 
     }
@@ -76,11 +79,11 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
             return;
         }
         mMap.setMyLocationEnabled(true);
-        LatLng udea = new LatLng(6.2675852, -75.5697014);
+        LatLng udea = new LatLng(6.2361582,-75.6160376);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(udea));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(udea, 16.0f));
         //mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
-        mMap.addMarker(new MarkerOptions().position(udea).title("Ubicación actual").snippet("De la mano por colombia"));
+        mMap.addMarker(new MarkerOptions().position(udea).title(agencias[0].getNombre()).snippet("De la mano por colombia"));
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
