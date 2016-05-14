@@ -78,13 +78,15 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        mMap.setMyLocationEnabled(true);
-        LatLng udea = new LatLng(6.2361582,-75.6160376);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(udea));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(udea, 16.0f));
-        //mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
-        mMap.addMarker(new MarkerOptions().position(udea).title(agencias[0].getNombre()).snippet("De la mano por colombia"));
 
+        mMap.setMyLocationEnabled(true);
+       for (int i = 0; i<8;i++) {
+           LatLng agen = new LatLng(agencias[i].getLati(),agencias[i].getLongi());
+           mMap.moveCamera(CameraUpdateFactory.newLatLng(agen));
+           mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(agen, 16.0f));
+           //mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+           mMap.addMarker(new MarkerOptions().position(agen).title(agencias[i].getNombre()).snippet("De la mano por colombia"));
+       }
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener locationListener = new LocationListener() {
