@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,31 +53,43 @@ public class HomeActivity extends AppCompatActivity
         View.OnClickListener {
 
 
-    /* Código de petición utilizado para las interacciones con la identificación del usuario. */
-    private static final int RC_SIGN_IN = 0;
-    private static final String TAG = "FAIL CONECTION";
-    /* Cliente utilizado para interactuar con Google APIs. */
-    private GoogleApiClient mGoogleApiClient;
-    /* Indica si existe una resolución de ConnectionResult pendiente */
-    private boolean mIsResolving = false;
-
-    /* Indica si debemos resolver automáticamente ConnectionResults cuando sea posible */
-    private boolean mShouldResolve = false;
-
-    /* TextView para mostrar el estado actual (identificado, no identificado, desconectado, etc.) */
-    private TextView mStatus;
-    /* Claves para almacenar variables de instancias en savedInstanceState */
-    private static final String KEY_IS_RESOLVING = "is_resolving";
-    private static final String KEY_SHOULD_RESOLVE = "should_resolve";
-
-    private NavigationView navigationView;
-    private ProgressDialog connectionProgressDialog;
     //Manejo de preferencia
     public static final String MyPREF = "UserData";
     public static final String Name = "nameUser";
     public static final String Image = "imageUser";
     public static final String Email = "emailUser";
+    /* Código de petición utilizado para las interacciones con la identificación del usuario. */
+    private static final int RC_SIGN_IN = 0;
+    private static final String TAG = "FAIL CONECTION";
+    /* TextView para mostrar el estado actual (identificado, no identificado, desconectado, etc.) */
+   // private TextView mStatus;
+    /* Claves para almacenar variables de instancias en savedInstanceState */
+    private static final String KEY_IS_RESOLVING = "is_resolving";
+    private static final String KEY_SHOULD_RESOLVE = "should_resolve";
+    /* Cliente utilizado para interactuar con Google APIs. */
+    private GoogleApiClient mGoogleApiClient;
+    /* Indica si existe una resolución de ConnectionResult pendiente */
+    private boolean mIsResolving = false;
+    /* Indica si debemos resolver automáticamente ConnectionResults cuando sea posible */
+    private boolean mShouldResolve = false;
+    private NavigationView navigationView;
+    private ProgressDialog connectionProgressDialog;
     private ImageView imgView;
+    private FrameLayout med;
+
+    ////////////////////#################3
+    public static Bitmap GetURLBitmap(URL url) {
+        try {
+            URLConnection conn = url.openConnection();
+            conn.connect();
+            InputStream isCover = conn.getInputStream();
+            Bitmap bmpCover = BitmapFactory.decodeStream(isCover);
+            isCover.close();
+            return bmpCover;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +114,7 @@ public class HomeActivity extends AppCompatActivity
                 .build();
 
         // Configuramos el TextView para el estado actual
-        mStatus = (TextView) findViewById(R.id.status);
+        //mStatus = (TextView) findViewById(R.id.status);
         //####################################################
 
 
@@ -120,8 +133,12 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        med=(FrameLayout) findViewById(R.id.frag_med);
+        med.setOnClickListener(this);
+
 
     }
 
@@ -144,9 +161,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -196,7 +211,7 @@ public class HomeActivity extends AppCompatActivity
             // El usuario hace clic en el botón para autenticarse, de forma que comienza
             // proceso de autenticación y automáticamente se intenta resolver cualquier
             // problema que pueda surgir.
-            mStatus.setText("Entrando!!");
+            //mStatus.setText("Entrando!!");
 
             mShouldResolve = true;
             // connectionProgressDialog.show();
@@ -216,7 +231,10 @@ public class HomeActivity extends AppCompatActivity
     public void onClick(View v) {
 
         switch (v.getId()){
-
+            case (R.id.frag_med):
+                Intent intent = new Intent(this,AgentActivity.class);
+                startActivity(intent);
+                break;
         }
 
     }
@@ -261,6 +279,7 @@ public class HomeActivity extends AppCompatActivity
             updateUI(false);
         }
     }
+
     private void showErrorDialog(ConnectionResult connectionResult) {
         int errorCode = connectionResult.getErrorCode();
 
@@ -324,11 +343,11 @@ public class HomeActivity extends AppCompatActivity
             editor.apply();
             String hola= personPhoto.getEncodedSchemeSpecificPart();
            personPhoto.getEncodedQuery();
-            mStatus.setText(personName + "\n");
-            mStatus.append("\n   " + personEmail);
+            //mStatus.setText(personName + "\n");
+           // mStatus.append("\n   " + personEmail);
 
-            mStatus.append("\n" + personPhoto.toString());
-            mStatus.append("\n" + personPhoto.getQuery());
+            //mStatus.append("\n" + personPhoto.toString());
+            //mStatus.append("\n" + personPhoto.getQuery());
           //  descargarImagen(personPhoto.toString());
             //
             //imgView.setImageBitmap(GetURLBitmap());
@@ -338,6 +357,7 @@ public class HomeActivity extends AppCompatActivity
             updateUI(false);
         }
     }
+
    //// ##################
    private Bitmap descargarImagen (String imageHttpAddress){
        URL imageUrl = null;
@@ -356,20 +376,6 @@ public class HomeActivity extends AppCompatActivity
        return imagen;
    }
 
-    ////////////////////#################3
-    public static Bitmap GetURLBitmap(URL url) {
-        try {
-            URLConnection conn = url.openConnection();
-            conn.connect();
-            InputStream isCover = conn.getInputStream();
-            Bitmap bmpCover = BitmapFactory.decodeStream(isCover);
-            isCover.close();
-            return bmpCover;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {
             // Muestra el nombre del usuario identificado
@@ -379,7 +385,7 @@ public class HomeActivity extends AppCompatActivity
             // findViewById(R.id.action_disconect).setVisibility(View.VISIBLE);
         } else {
             // Muestra el mensaje de no identificado
-            mStatus.setText("Sin registrar");
+           // mStatus.setText("Sin registrar");
             //TODO falta mejorar para la visibiliadad de los items
 
 

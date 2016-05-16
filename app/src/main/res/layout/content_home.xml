@@ -9,98 +9,225 @@
     tools:context="com.andorid.proenandroid.delamanoporcolombia.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User!"
-        android:id="@+id/status"/>
     <ScrollView
+        android:id="@+id/scrollViews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ScrollView>
+
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollViews">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:columnCount="3"
+        android:rowCount="6">
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
+            android:id="@+id/frag_med"
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_Manizales"
-                    android:background="@drawable/manizales" />
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_Medellin"
-                    android:layout_below="@id/btn_Manizales"
-                    android:background="@drawable/medellin"
-                    android:layout_marginTop="5dp"/>
-
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_Cartagena"
-                    android:layout_below="@id/btn_Medellin"
-                    android:background="@drawable/cartagena"
-                    android:layout_marginTop="5dp"/>
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_Amazonas"
-                    android:layout_below="@id/btn_Cartagena"
-                    android:background="@drawable/amazonas"
-                    android:layout_marginTop="5dp"/>
-
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_San_Andres"
-                    android:layout_below="@id/btn_Amazonas"
-                    android:background="@drawable/san_andres"
-                    android:layout_marginTop="5dp"/>
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_Santa_Marta"
-                    android:layout_below="@id/btn_San_Andres"
-                    android:background="@drawable/santa_marta"
-                    android:layout_marginTop="5dp"/>
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_Barranquilla"
-                    android:layout_below="@id/btn_Santa_Marta"
-                    android:background="@drawable/barranquilla"
-                    android:layout_marginTop="5dp"/>
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_Bogota"
-                    android:layout_below="@id/btn_Barranquilla"
-                    android:background="@drawable/bogota"
-                    android:layout_marginTop="5dp"/>
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btn_cali"
-                    android:layout_below="@id/btn_Bogota"
-                    android:background="@drawable/cali"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
 
         </FrameLayout>
-    </ScrollView>
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_column="1"
+            android:layout_row="0" />
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="2"
+            android:layout_marginTop="5dp"
+            android:layout_row="2"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
+        </FrameLayout>
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_column="0"
+            android:layout_row="3" />
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="0"
+            android:layout_marginTop="5dp"
+            android:layout_row="2"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="0"
+            android:layout_marginTop="5dp"
+            android:layout_row="4"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick" >
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="2"
+            android:layout_marginTop="5dp"
+            android:layout_row="4"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick" >
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="0"
+            android:layout_marginTop="5dp"
+            android:layout_row="5"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick" >
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="154dp"
+            android:layout_column="2"
+            android:layout_marginTop="5dp"
+            android:layout_row="5"
+            android:background="@drawable/font_medellin"
+            android:onClick="onClick" >
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="left|bottom"
+                android:alpha=".9"
+                android:background="#524e4e"
+                android:elegantTextHeight="false"
+                android:text="Medellin"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffff"
+                android:textStyle="italic" />
+        </FrameLayout>
+
+    </GridLayout>
+
 </RelativeLayout>

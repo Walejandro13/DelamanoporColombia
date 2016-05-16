@@ -58,8 +58,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andorid.proenandroid.delamanoporcolombia.HomeActivity" />
-
-
+        </activity>
+        <activity
+            android:name=".AgentActivity"
+            android:label="@string/title_activity_agent"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andorid.proenandroid.delamanoporcolombia.HomeActivity" />
         </activity>
     </application>
 
