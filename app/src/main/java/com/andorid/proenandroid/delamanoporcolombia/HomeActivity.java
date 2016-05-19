@@ -75,7 +75,8 @@ public class HomeActivity extends AppCompatActivity
     private NavigationView navigationView;
     private ProgressDialog connectionProgressDialog;
     private ImageView imgView;
-    private FrameLayout med;
+    private FrameLayout med,bog,cali,cart,sant;
+    private FrameLayout mani;
 
     ////////////////////#################3
     public static Bitmap GetURLBitmap(URL url) {
@@ -139,6 +140,16 @@ public class HomeActivity extends AppCompatActivity
         med=(FrameLayout) findViewById(R.id.frag_med);
         med.setOnClickListener(this);
 
+        bog=(FrameLayout) findViewById(R.id.frag_bog);
+        bog.setOnClickListener(this);
+        cart=(FrameLayout) findViewById(R.id.frag_cart);
+        cart.setOnClickListener(this);
+        cali=(FrameLayout) findViewById(R.id.frag_cali);
+        cali.setOnClickListener(this);
+        mani=(FrameLayout) findViewById(R.id.frag_mani);
+        mani.setOnClickListener(this);
+        sant=(FrameLayout) findViewById(R.id.frag_santa);
+        sant.setOnClickListener(this);
 
     }
 
@@ -230,11 +241,28 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
+        Intent intent = new Intent(this,AgentActivity.class);
         switch (v.getId()){
             case (R.id.frag_med):
-                Intent intent = new Intent(this,AgentActivity.class);
                 startActivity(intent);
                 break;
+            case (R.id.frag_bog):
+                startActivity(intent);
+                break;
+            case (R.id.frag_cali):
+                startActivity(intent);
+                break;
+            case (R.id.frag_cart):
+                startActivity(intent);
+                break;
+            case (R.id.frag_santa):
+                startActivity(intent);
+                break;
+
+            case (R.id.frag_mani):
+                startActivity(intent);
+                break;
+
         }
 
     }

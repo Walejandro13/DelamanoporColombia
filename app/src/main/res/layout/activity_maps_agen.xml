@@ -52,7 +52,8 @@
             android:textSize="20dp"
             android:id="@+id/tView"
             android:text="Datos"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

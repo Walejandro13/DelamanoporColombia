@@ -30,7 +30,11 @@ public class Agencias extends  Agencia {
                     6.2400523,-75.5882667),
             new Agencia("Agencia de Viajes Turicol - Turismo Receptivo de Colombia Ltda",
                     "Facilita al viajero su estadía brindando las mejores experiencias de viaje.",
-                    6.2400523,-75.5882667),};
+                    6.2400523,-75.5882667),
+            new Agencia( "Agencia de Viajes vuelo Secreto","Ofrecemos servicios de excursiones, tiquetería, planes individuales nacionales e internacionales," +
+                        " satisfaciendo las necesidades de nuestros clientes de forma proactiva e integral, " +
+                    "con efectividad y calidad.",6.2444401,-75.6160376)
+    };
 
 
     public static Agencia[] getMedellin() {
