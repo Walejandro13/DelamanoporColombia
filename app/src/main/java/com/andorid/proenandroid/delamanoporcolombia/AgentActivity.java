@@ -1,7 +1,9 @@
 package com.andorid.proenandroid.delamanoporcolombia;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -16,24 +18,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getMedellin;
 
 public class AgentActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ListView mylist;
+    private Agencia[] agencias;
+    public static int agen = 0;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +57,40 @@ public class AgentActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        ArrayList<String> nombreAgent = new ArrayList<String>();
+        agencias = getMedellin();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        for (int i=0; i<9; i++){
+            nombreAgent.add(agencias[i].getNombre());
+        }
+      //  String[]  myStringArray={"A","B","C"};
+
+
+
+         fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                Intent intent = new Intent(AgentActivity.this,MapsAgenActivity.class);
+                switch (agen){
+                    case 1:
+                        Snackbar.make(view, "Ahora puedes ver su ubicación", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        startActivity(intent);
+                        break;
+                }
+
             }
         });
 
     }
-
+    public static int setAgen(int age){
+        agen=age;
+        return agen;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,7 +117,7 @@ public class AgentActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements View.OnClickListener{
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -117,9 +145,28 @@ public class AgentActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_agent, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            RelativeLayout frame1= (RelativeLayout) rootView.findViewById(R.id.frame1);
+            frame1.setOnClickListener(this);
+
             return rootView;
         }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case (R.id.frame1):
+                    getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
+                    agen=1;
+                   // getActivity().findViewById(R.id.frame1).setAnimation();
+                    Snackbar.make(v, "Agencia 1", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                    break;
+
+            }
+        }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -157,4 +204,6 @@ public class AgentActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 }
