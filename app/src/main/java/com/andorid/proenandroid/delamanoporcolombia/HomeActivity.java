@@ -244,22 +244,29 @@ public class HomeActivity extends AppCompatActivity
         Intent intent = new Intent(this,AgentActivity.class);
         switch (v.getId()){
             case (R.id.frag_med):
+                intent.setAction("Medellin");
                 startActivity(intent);
                 break;
             case (R.id.frag_bog):
+                intent.setAction("Bogota");
                 startActivity(intent);
+
                 break;
             case (R.id.frag_cali):
+                intent.setAction("Cali");
                 startActivity(intent);
                 break;
             case (R.id.frag_cart):
+                intent.setAction("Cartagena");
                 startActivity(intent);
                 break;
             case (R.id.frag_santa):
+                intent.setAction("Santamarta");
                 startActivity(intent);
                 break;
 
             case (R.id.frag_mani):
+                intent.setAction("Manizales");
                 startActivity(intent);
                 break;
 
@@ -370,7 +377,7 @@ public class HomeActivity extends AppCompatActivity
             editor.putString(Image, personPhoto.toString());
             editor.apply();
             String hola= personPhoto.getEncodedSchemeSpecificPart();
-           personPhoto.getEncodedQuery();
+            personPhoto.getEncodedQuery();
             //mStatus.setText(personName + "\n");
            // mStatus.append("\n   " + personEmail);
 

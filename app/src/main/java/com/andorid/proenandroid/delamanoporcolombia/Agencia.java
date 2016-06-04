@@ -1,21 +1,25 @@
 package com.andorid.proenandroid.delamanoporcolombia;
 
-/**
- * Created by Usuario on 03/05/2016.
- */
 public class Agencia {
     private String nombre;
     private String descrip;
     private double longi,lati;
+    private  int idImage;
+    private int telefono;
+    private String correo;
+    private  String direccion;
 
     public Agencia(){}
 
-    public  Agencia(String na, String des, double la, double lo){
-
-        nombre=na;
-        descrip=des;
-        longi=lo;
-        lati=la;
+    public  Agencia(String na, String des, String cor, String dir, double la, double lo, int img, int tel){
+        nombre = na;
+        descrip = des;
+        correo = cor;
+        longi = lo;
+        lati = la;
+        idImage = img;
+        telefono = tel;
+        direccion = dir;
     }
 
     public String getNombre(){return nombre;}
@@ -31,4 +35,15 @@ public class Agencia {
     public String getDescrip() {
             return descrip;
     }
+
+    public int getIdImage() {
+        return idImage;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public String getCorreo() { return  correo; }
 }
+

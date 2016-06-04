@@ -75,7 +75,7 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         }
 
         mMap.setMyLocationEnabled(true);
-       for (int i = 0; i<8;i++) {
+       for (int i = 0; i<9;i++) {
            LatLng agen = new LatLng(agencias[i].getLati(),agencias[i].getLongi());
            mMap.moveCamera(CameraUpdateFactory.newLatLng(agen));
            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(agen, 16.0f));
@@ -164,8 +164,10 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
 
     public void go (View v){
         mMap.clear();
-        dlongi = Double.parseDouble(longi.getText().toString());
+        //TODO asegurarse de recibir el intent y comparar accion
 
+        String longit = getParentActivityIntent().getStringExtra("Longitud");
+        dlongi = Double.parseDouble(longi.getText().toString());// DOUBLE que viene del intent
         dlati = Double.parseDouble(lati.getText().toString());
         LatLng buscar = new LatLng(dlati, dlongi);
         mMap.addMarker(new MarkerOptions().position(buscar).title("Marcador buscado").snippet("De la mano por Colombia"));

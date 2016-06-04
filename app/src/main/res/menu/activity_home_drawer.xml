@@ -9,7 +9,8 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/gallery"
-            android:title="Galeria" />
+            android:title="Galeria"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_nearagent"
             android:icon="@drawable/location"
@@ -17,7 +18,8 @@
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Tools"
+            android:visible="false"/>
     </group>
 
     <item android:title="Comunícate">
@@ -25,11 +27,13 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Share"
+                android:visible="false"/>
             <item
                 android:id="@+id/nav_contacus"
                 android:icon="@drawable/business"
-                android:title="Contactanos" />
+                android:title="Contactanos"
+                android:visible="false"/>
 
                 <item
                     android:id="@+id/sign_in_button"
