@@ -11,7 +11,7 @@ public class Agencia {
 
     public Agencia(){}
 
-    public  Agencia(String na, String des, String cor, String dir, double la, double lo, int img, int tel){
+    public  Agencia(String na, String des, String cor, String dir, double la, double lo,  int tel,int img){
         nombre = na;
         descrip = des;
         correo = cor;

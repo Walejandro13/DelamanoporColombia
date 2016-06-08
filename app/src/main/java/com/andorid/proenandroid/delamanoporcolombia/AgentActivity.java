@@ -33,12 +33,16 @@ import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getManizales
 import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getMedellin;
 import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getSantaMarta;
 
+import static com.andorid.proenandroid.delamanoporcolombia.HomeActivity.medio;
+
 public class AgentActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ListView mylist;
     public static Agencia[] agencias, agenciasbo;
     public static int agen = 0;
+    private static double latitud=0;
+    private static double longitud=0;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -64,90 +68,109 @@ public class AgentActivity extends AppCompatActivity {
 
 
          fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(AgentActivity.this,MapsAgenActivity.class);
+                medio=1;
                 switch (agen){
+                    case 0:
+                        Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[0].getNombre());
+
+                        intent.setAction("Agencia 1");
+                        startActivity(intent);
+                        break;
                     case 1:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[0].getLati());
-                        intent.putExtra("Longitud", agencias[0].getLongi());
-                        intent.putExtra("Nombre", agencias[0].getNombre());
+                       // intent.putExtra("Latitud", agencias[1].getLati());
+                        //intent.putExtra("Longitud", agencias[1].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[1].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
                         break;
                     case 2:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[1].getLati());
-                        intent.putExtra("Longitud", agencias[1].getLongi());
-                        intent.putExtra("Nombre", agencias[1].getNombre());
+                       // intent.putExtra("Latitud", agencias[2].getLati());
+                        //intent.putExtra("Longitud", agencias[2].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[2].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
                         break;
                     case 3:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[2].getLati());
-                        intent.putExtra("Longitud", agencias[2].getLongi());
-                        intent.putExtra("Nombre", agencias[2].getNombre());
+                        //intent.putExtra("Latitud", agencias[3].getLati());
+                        //intent.putExtra("Longitud", agencias[3].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[3].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
                         break;
                     case 4:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[3].getLati());
-                        intent.putExtra("Longitud", agencias[3].getLongi());
-                        intent.putExtra("Nombre", agencias[3].getNombre());
+                       // intent.putExtra("Latitud", agencias[4].getLati());
+                        //intent.putExtra("Longitud", agencias[4].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[4].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
                         break;
                     case 5:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[4].getLati());
-                        intent.putExtra("Longitud", agencias[4].getLongi());
-                        intent.putExtra("Nombre", agencias[4].getNombre());
+                       // intent.putExtra("Latitud", agencias[5].getLati());
+                       // intent.putExtra("Longitud", agencias[5].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[5].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
                         break;
                     case 6:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[5].getLati());
-                        intent.putExtra("Longitud", agencias[5].getLongi());
-                        intent.putExtra("Nombre", agencias[5].getNombre());
+                       // intent.putExtra("Latitud", agencias[6].getLati());
+                        //intent.putExtra("Longitud", agencias[6].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[6].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
                         break;
                     case 7:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[6].getLati());
-                        intent.putExtra("Longitud", agencias[6].getLongi());
-                        intent.putExtra("Nombre", agencias[6].getNombre());
+                        //intent.putExtra("Latitud", agencias[7].getLati());
+                        //intent.putExtra("Longitud", agencias[7].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
+                        intent.putExtra("Nombre", agencias[7].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
                         break;
                     case 8:
                         Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[7].getLati());
-                        intent.putExtra("Longitud", agencias[7].getLongi());
-                        intent.putExtra("Nombre", agencias[7].getNombre());
-                        intent.setAction("Agencia 1");
-                        startActivity(intent);
-                        break;
-                    case 9:
-                        Snackbar.make(view, "Ahora puedes ver su ubicación en el mapa", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        intent.putExtra("Latitud", agencias[8].getLati());
-                        intent.putExtra("Longitud", agencias[8].getLongi());
+                        //intent.putExtra("Latitud", agencias[8].getLati());
+                        //intent.putExtra("Longitud", agencias[8].getLongi());
+                        intent.putExtra("Latitud", latitud);
+                        intent.putExtra("Longitud", longitud);
                         intent.putExtra("Nombre", agencias[8].getNombre());
                         intent.setAction("Agencia 1");
                         startActivity(intent);
@@ -243,62 +266,103 @@ public class AgentActivity extends AppCompatActivity {
             tv.setText(ciudad);
             frame1.setOnClickListener(this);
             TextView tv2= (TextView) rootView.findViewById(R.id.tvnc3);
+            TextView tf= (TextView) rootView.findViewById(R.id.tv_tf);
+
+            TextView td= (TextView) rootView.findViewById(R.id.tv_dir);
+            TextView tcor= (TextView) rootView.findViewById(R.id.tv_corr);
+
             //Todo deacuerdo a ciudad
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1:
                     //todo  llenar fragmento
-                    agen=1;
-                   tv.setText(agencias[0].getNombre());
+                    agen=0;
+                    tv.setText(agencias[0].getNombre());
                     tv2.setText(agencias[0].getDescrip());
+                    tcor.setText(agencias[0].getCorreo());
+                    tf.setText(agencias[0].getTelefono()+" ");
+                    latitud= agencias[0].getLati();
+                    longitud=agencias[0].getLongi();
                     break;
                 case 2:
                     //todo  llenar fragmento
-                    agen=2;
+                    agen=1;
                    tv.setText(agencias[1].getNombre());
                     tv2.setText(agencias[1].getDescrip());
+                    tcor.setText(agencias[1].getCorreo());
+                    tf.setText(agencias[1].getTelefono()+" ");
+                    latitud= agencias[1].getLati();
+                    longitud=agencias[1].getLongi();
                     break;
                 case 3:
                     //todo  llenar fragmento
-                    agen=3;
+                    agen=2;
                    tv.setText(agencias[2].getNombre());
                     tv2.setText(agencias[2].getDescrip());
+                    tcor.setText(agencias[2].getCorreo());
+                    tf.setText(agencias[2].getTelefono()+" ");
+                    latitud= agencias[2].getLati();
+                    longitud=agencias[2].getLongi();
                     break;
                 case 4:
                     //todo  llenar fragmento
-                    agen=4;
+                    agen=3;
                    tv.setText(agencias[3].getNombre());
                     tv2.setText(agencias[3].getDescrip());
+                    tcor.setText(agencias[3].getCorreo());
+                    tf.setText(agencias[3].getTelefono()+" ");
+                    latitud= agencias[3].getLati();
+                    longitud=agencias[3].getLongi();
                     break;
                 case 5:
                     //todo  llenar
-                    agen=5;
+                    agen=4;
                    tv.setText(agencias[4].getNombre());
                     tv2.setText(agencias[4].getDescrip());
+                    tcor.setText(agencias[4].getCorreo());
+                    tf.setText(agencias[4].getTelefono()+" ");
+                    latitud= agencias[4].getLati();
+                    longitud=agencias[4].getLongi();
                     break;
                 case 6:
                     //todo  llenar fragmento
-                    agen=6;
+                    agen=5;
                    tv.setText(agencias[5].getNombre());
                     tv2.setText(agencias[5].getDescrip());
+                    tcor.setText(agencias[5].getCorreo());
+                    tf.setText(agencias[5].getTelefono()+" ");
+                    latitud= agencias[5].getLati();
+                    longitud=agencias[5].getLongi();
                     break;
                 case 7:
                     //todo  llenar fragmento
-                    agen=7;
+                    agen=6;
                    tv.setText(agencias[6].getNombre());
                     tv2.setText(agencias[6].getDescrip());
+                    tcor.setText(agencias[6].getCorreo());
+                    tf.setText(agencias[6].getTelefono()+" ");
+                    latitud= agencias[6].getLati();
+                    longitud=agencias[6].getLongi();
                     break;
                 case 8:
                     //todo  llenar fragmento
-                    agen=8;
+                    agen=7;
                     tv.setText(agencias[7].getNombre());
                     tv2.setText(agencias[7].getDescrip());
+                    tcor.setText(agencias[7].getCorreo());
+                    tf.setText(agencias[7].getTelefono()+" ");
+                    latitud= agencias[7].getLati();
+                    longitud=agencias[7].getLongi();
                     break;
                 case 9:
                     //todo  llenar fragmento
-                    agen=9;
+                    agen=8;
                     tv.setText(agencias[8].getNombre());
                     tv2.setText(agencias[8].getDescrip());
+                    tcor.setText(agencias[8].getCorreo());
+                    tf.setText(agencias[8].getTelefono()+" ");
+                    latitud= agencias[8].getLati();
+                    longitud=agencias[8].getLongi();
                     break;
 
             }
@@ -311,11 +375,7 @@ public class AgentActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case (R.id.frame1):
-                    getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
-                    agen=1;
-                   // getActivity().findViewById(R.id.frame1).setAnimation();
-                    Snackbar.make(v, "Seleccionada" , Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+
 
                     break;
 

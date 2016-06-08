@@ -9,7 +9,7 @@ public class Agencias extends  Agencia {
     private static Agencia[] Medellin =  {
             new Agencia("Agencia de Viajes  de Pueblo en Pueblo",
                     "De Pueblo en Pueblo es una agencia especialista en turismo por Antioquia cada domingon" +
-                            "salen a un pueblo diferente de la región. ",
+                    "salen a un pueblo diferente de la región. ",
                     "viajesdepuebloenpueblo.com","Cra. 51 #5147,Medellín, Antioquia",
                     6.2361582,-75.6160376,3137225,1),
             new Agencia( "Agencia de Viajes Over Comfenalco Antioquia",

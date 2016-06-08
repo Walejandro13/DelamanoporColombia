@@ -58,6 +58,9 @@ public class HomeActivity extends AppCompatActivity
     public static final String Name = "nameUser";
     public static final String Image = "imageUser";
     public static final String Email = "emailUser";
+    public  static int ciudad=0;
+    public  static int medio=0;
+
     /* Código de petición utilizado para las interacciones con la identificación del usuario. */
     private static final int RC_SIGN_IN = 0;
     private static final String TAG = "FAIL CONECTION";
@@ -211,6 +214,9 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_nearagent) {
             Intent intent = new Intent(this,MapsAgenActivity.class);
+            intent.putExtra("invoca",0);
+            ciudad=0;
+            medio=0;
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
@@ -245,28 +251,34 @@ public class HomeActivity extends AppCompatActivity
         switch (v.getId()){
             case (R.id.frag_med):
                 intent.setAction("Medellin");
+                ciudad=1;
                 startActivity(intent);
                 break;
             case (R.id.frag_bog):
                 intent.setAction("Bogota");
+                ciudad=2;
                 startActivity(intent);
 
                 break;
             case (R.id.frag_cali):
                 intent.setAction("Cali");
+                ciudad=3;
                 startActivity(intent);
                 break;
             case (R.id.frag_cart):
                 intent.setAction("Cartagena");
+                ciudad=6;
                 startActivity(intent);
                 break;
             case (R.id.frag_santa):
                 intent.setAction("Santamarta");
+                ciudad=5;
                 startActivity(intent);
                 break;
 
             case (R.id.frag_mani):
                 intent.setAction("Manizales");
+                ciudad=4;
                 startActivity(intent);
                 break;
 

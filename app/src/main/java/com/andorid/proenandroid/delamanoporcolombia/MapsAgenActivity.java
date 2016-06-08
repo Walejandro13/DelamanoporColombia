@@ -22,7 +22,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.andorid.proenandroid.delamanoporcolombia.Agencias;
 
+import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getBogota;
+import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getCali;
+import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getCartagena;
+import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getManizales;
 import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getMedellin;
+import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getSantaMarta;
+import static com.andorid.proenandroid.delamanoporcolombia.HomeActivity.ciudad;
+
+import static com.andorid.proenandroid.delamanoporcolombia.HomeActivity.medio;
 
 public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -52,7 +60,7 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         go = (Button) findViewById(R.id.bGo);
         actual = (Button) findViewById(R.id.bActual);
         y = 0;
-        agencias = getMedellin();
+         getagent();
 
 
     }
@@ -74,14 +82,21 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
             return;
         }
 
-        mMap.setMyLocationEnabled(true);
-       for (int i = 0; i<9;i++) {
-           LatLng agen = new LatLng(agencias[i].getLati(),agencias[i].getLongi());
-           mMap.moveCamera(CameraUpdateFactory.newLatLng(agen));
-           mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(agen, 16.0f));
-           //mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
-           mMap.addMarker(new MarkerOptions().position(agen).title(agencias[i].getNombre()).snippet("De la mano por colombia"));
-       }
+        if (medio==0) {
+
+
+            mMap.setMyLocationEnabled(true);
+            for (int i = 0; i < 9; i++) {
+                LatLng agen = new LatLng(agencias[i].getLati(), agencias[i].getLongi());
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(agen));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(agen, 16.0f));
+                //mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+                mMap.addMarker(new MarkerOptions().position(agen).title(agencias[i].getNombre()).snippet("De la mano por colombia"));
+            }
+        }
+       else{
+            go();
+        }
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener locationListener = new LocationListener() {
@@ -93,9 +108,9 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
                //mMap.addMarker(new MarkerOptions().position(loc).title("Ubicación actual").snippet("De la mano por colombia"));
                 //TODO falta mejorar para no mover a medida que el usuario lo hace
                 if(mMap != null){
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
-                    tView.setText("Longitud: " + location.getLatitude() + location.getLongitude());
+                  // mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+                  // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                   //tView.setText("Longitud: " + location.getLatitude() + location.getLongitude());
 
                 }
             }
@@ -162,18 +177,59 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         makeUseOfNewLocation(location);
     }
 
-    public void go (View v){
+    public void go (){
         mMap.clear();
         //TODO asegurarse de recibir el intent y comparar accion
 
-        String longit = getParentActivityIntent().getStringExtra("Longitud");
-        dlongi = Double.parseDouble(longi.getText().toString());// DOUBLE que viene del intent
-        dlati = Double.parseDouble(lati.getText().toString());
+        Double longit = getIntent().getDoubleExtra("Longitud",0);
+        Double lati = getIntent().getDoubleExtra("Latitud",0);
+        String nom= getIntent().getStringExtra("Nombre");
+
+        dlongi = longit;// DOUBLE que viene del intent
+        dlati = lati;//Double.parseDouble(lati);
         LatLng buscar = new LatLng(dlati, dlongi);
-        mMap.addMarker(new MarkerOptions().position(buscar).title("Marcador buscado").snippet("De la mano por Colombia"));
+        mMap.addMarker(new MarkerOptions().position(buscar).title(nom).snippet("De la mano por Colombia"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(buscar));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo(buscar,16));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(buscar, 16.0f));
     }
+
+
+    public  void getagent(){
+        //int accion = getParentActivityIntent().getIntExtra("invoca",0);
+
+        switch (ciudad){
+            case 0:
+                agencias=getManizales();
+                break;
+            case 1:
+                agencias= getMedellin();
+                break;
+            case 2:
+                agencias= getBogota();
+                break;
+
+            case 3:
+                agencias= getCali();
+                break;
+
+            case 4:
+                agencias= getManizales();
+                break;
+
+            case 5:
+                agencias= getSantaMarta();
+                break;
+
+            case 6:
+                agencias= getCartagena();
+                break;
+
+
+        }
+
+    }
+
 }
 
 
