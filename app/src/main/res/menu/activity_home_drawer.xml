@@ -28,12 +28,12 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share"
-                android:visible="false"/>
+                />
             <item
                 android:id="@+id/nav_contacus"
                 android:icon="@drawable/business"
                 android:title="Contactanos"
-                android:visible="false"/>
+               />
 
                 <item
                     android:id="@+id/sign_in_button"

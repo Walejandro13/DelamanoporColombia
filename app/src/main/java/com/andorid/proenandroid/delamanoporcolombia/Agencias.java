@@ -3,8 +3,6 @@ package com.andorid.proenandroid.delamanoporcolombia;
 
 public class Agencias extends  Agencia {
 
-    //todo agencia empaque y vamonos le flata la direccion
-    //todo agencia turicol no se encuentra informacion buscar luego
 
     private static Agencia[] Medellin =  {
             new Agencia("Agencia de Viajes  de Pueblo en Pueblo",
@@ -27,7 +25,7 @@ public class Agencias extends  Agencia {
             new Agencia("Agencia de Viajes Empaque y Vámonos",
                     "Es el operador mayorista a otras regiones de Colombia.",
                     "www.empaqueyvamonos.com","reservas@empaqueyvamonos.com",
-                    12.5406168,-81.774295,3200550,5),
+                    6.1811701,-75.5921693,3200550,5),
             new Agencia("Agencia de Viajes Turismo de Naturaleza",
                     "Agencia Tour Operadora en Ecoturismo, Turismo de Aventura y Agroturismo de la ciudad de Medellín.",
                     "turismodenaturaleza.co","Carrera 65 a 13 157 Local 63 A Piso 2,Medellín, Antioquia",
@@ -39,7 +37,7 @@ public class Agencias extends  Agencia {
             new Agencia("Agencia de Viajes Turicol - Turismo Receptivo de Colombia Ltda",
                     "Facilita al viajero su estadía brindando las mejores experiencias de viaje.",
                     "","",
-                    6.2400523,-75.5882667,8,8),
+                    6.2488523,-75.5382987,8,8),
             new Agencia( "Agencia de Viajes vuelo Secreto",
                     "Ofrecemos servicios de excursiones, tiquetería, planes individuales nacionales e internacionales," +
                         " satisfaciendo las necesidades de nuestros clientes de forma proactiva e integral, " +

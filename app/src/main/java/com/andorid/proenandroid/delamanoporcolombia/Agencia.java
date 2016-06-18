@@ -45,5 +45,7 @@ public class Agencia {
     }
 
     public String getCorreo() { return  correo; }
+
+    public String getDireccion(){return direccion;}
 }
 

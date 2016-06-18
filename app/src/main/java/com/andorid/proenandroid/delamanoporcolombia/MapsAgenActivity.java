@@ -8,12 +8,11 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import java.lang.Math;
 
 import android.location.LocationListener;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,11 +38,6 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
     private Agencia[] agencias;
     private double dlongi, dlati;
     private int y;
-    private TextView longi;
-    private TextView lati;
-    private TextView tView;
-    private Button go;
-    private Button actual;
     private LatLng loc;
 
     @Override
@@ -54,13 +48,8 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        tView = (TextView) findViewById(R.id.tView);
-        longi = (EditText) findViewById(R.id.eLon);
-        lati = (EditText) findViewById(R.id.eLat);
-        go = (Button) findViewById(R.id.bGo);
-        actual = (Button) findViewById(R.id.bActual);
         y = 0;
-         getagent();
+        getagent();
 
 
     }
@@ -68,7 +57,7 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Activamos la capa o layer MyLocation
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -82,10 +71,10 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
             return;
         }
 
+
+       mMap.setMyLocationEnabled(true);
         if (medio==0) {
 
-
-            mMap.setMyLocationEnabled(true);
             for (int i = 0; i < 9; i++) {
                 LatLng agen = new LatLng(agencias[i].getLati(), agencias[i].getLongi());
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(agen));
@@ -106,12 +95,32 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
                 //mMarker =
                // makeUseOfNewLocation(location);
                //mMap.addMarker(new MarkerOptions().position(loc).title("Ubicación actual").snippet("De la mano por colombia"));
-                //TODO falta mejorar para no mover a medida que el usuario lo hace
-                if(mMap != null){
+                if((mMap != null)&&(medio==0)){
                   // mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-                  // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
-                   //tView.setText("Longitud: " + location.getLatitude() + location.getLongitude());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
+                    double menor=60000, menorlon=1000, d =0, menorla=0;
+                    String noma = null;
+                    double r = 6378.7;
+                    for (int i=0;i<agencias.length;i++){
 
+                        d=r*Math.acos( Math.sin( agencias[i].getLati() )* Math.sin ( location.getLatitude()) +
+                                Math.cos( agencias[i].getLati() )*Math.cos( location.getLatitude())
+                                *Math.cos(location.getLongitude() - agencias[i].getLongi()));
+                        if (d<=menor) {
+                            menorla= agencias[i].getLati();
+                            noma=agencias[i].getNombre();
+                            menorlon=agencias[i].getLongi();
+                            menor  = d;
+                        }
+
+                    }
+                    Toast.makeText(
+                            MapsAgenActivity.this,
+                            "La agencia mas cercana es:\n" +
+                                    noma,
+                            Toast.LENGTH_LONG).show();
+                    loc= new LatLng(menorla,menorlon);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
                 }
             }
 
@@ -144,18 +153,17 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
         }
         dlati = location.getLatitude();
         dlongi = location.getLongitude();
-        tView.setText("Longitud: " + dlongi + "\nLatitud: " + dlati);
         LatLng actualizado = new LatLng(dlati, dlongi);
 
 
         if(y==1){
-            mMap.addMarker(new MarkerOptions().position(actualizado).title("Marcador actual").snippet("De la mano por Colombia"));
+            mMap.addMarker(new MarkerOptions().position(actualizado).title("Ubicacion Actual").snippet("De la mano por Colombia"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(actualizado));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(actualizado, 16.0f));
         }
 
     }
-    public void actual(View v) {
+    public void actual() {
         mMap.clear();
         y = 1;
         makeUseOfNewLocation();
@@ -180,13 +188,13 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
     public void go (){
         mMap.clear();
         //TODO asegurarse de recibir el intent y comparar accion
-
+        String nom= getIntent().getStringExtra("Nombre");
         Double longit = getIntent().getDoubleExtra("Longitud",0);
         Double lati = getIntent().getDoubleExtra("Latitud",0);
-        String nom= getIntent().getStringExtra("Nombre");
 
-        dlongi = longit;// DOUBLE que viene del intent
-        dlati = lati;//Double.parseDouble(lati);
+
+        dlongi = longit;
+        dlati = lati;
         LatLng buscar = new LatLng(dlati, dlongi);
         mMap.addMarker(new MarkerOptions().position(buscar).title(nom).snippet("De la mano por Colombia"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(buscar));
@@ -200,7 +208,34 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
 
         switch (ciudad){
             case 0:
-                agencias=getManizales();
+                //mmed, mani, marta,cart, bog,cali
+                Double[] coord= new Double[]{6.2690007, 5.0744274, 11.0867009,
+                        10.40036,4.6486259,3.4109271};
+                //actual();
+                int menor=(int)dlati;
+                switch (menor){
+                    case 6:
+                        agencias= getMedellin();
+                        break;
+                    case 5:
+                        agencias= getManizales();
+                        break;
+                    case 11:
+                        agencias= getSantaMarta();
+                        break;
+                    case 10:
+                        agencias= getCartagena();
+                        break;
+                    case 4:
+                        agencias= getBogota();
+                        break;
+                    case 3:
+                        agencias= getCali();
+                        break;
+                    default:
+                        agencias= getMedellin();
+                }
+
                 break;
             case 1:
                 agencias= getMedellin();
