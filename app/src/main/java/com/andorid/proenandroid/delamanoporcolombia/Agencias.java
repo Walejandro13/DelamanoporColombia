@@ -16,7 +16,7 @@ public class Agencias extends  Agencia {
                     6.2508653,-75.5703947,4447110,2),
             new Agencia("Agencia de Viajes Casa de Colombia Medellín LTDA",
                     "Casa de Colombia es una de las agencias con más trayectoria y prestigio en Medellín.",
-                    "casadecolombia.travel","Carrera 43A 6 Sur 15 Centro Comercial Oviedo, Local 106",+
+                    "casadecolombia.travel","Carrera 43A 6 Sur 15 Centro Comercial Oviedo, Local 106",
                     6.2018143,-75.5750857,4442611,3),
             new Agencia("Agencia de Viajes LandVenture Travel",
                     "Ofrece tours de día entero a los más emocionantes y paisajísticos destinos, ubicados a dos horas de la ciudad.",
@@ -165,7 +165,7 @@ public class Agencias extends  Agencia {
                     "","",
                     3.426615,-76.5583518,3,8),
             new Agencia( "Agencia de Viajes Panturismo Cali ",
-                    "Ofrecemos servicios de excursiones, tiquetería, planes individuales nacionales e internacionales," +
+                            "Ofrecemos servicios de excursiones, tiquetería, planes individuales nacionales e internacionales," +
                             " satisfaciendo las necesidades de nuestros clientes de forma proactiva e integral, " +
                             "con efectividad y calidad.",
                     "","",

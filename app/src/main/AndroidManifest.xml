@@ -13,7 +13,7 @@
 
     <permission
         android:name="com.pkg.map.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"></permission>
+        android:protectionLevel="signature" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -75,11 +75,20 @@
         <activity
             android:name=".AgenttActivity"
             android:label="@string/title_activity_agentt"
+            android:parentActivityName=".ListAgentActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andorid.proenandroid.delamanoporcolombia.ListAgentActivity" />
+        </activity>
+
+        <activity android:name=".ListAgentActivity"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andorid.proenandroid.delamanoporcolombia.HomeActivity" />
+
         </activity>
     </application>
 

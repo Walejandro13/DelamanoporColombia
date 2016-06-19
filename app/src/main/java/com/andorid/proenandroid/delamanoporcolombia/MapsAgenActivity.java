@@ -187,12 +187,9 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
 
     public void go (){
         mMap.clear();
-        //TODO asegurarse de recibir el intent y comparar accion
         String nom= getIntent().getStringExtra("Nombre");
         Double longit = getIntent().getDoubleExtra("Longitud",0);
         Double lati = getIntent().getDoubleExtra("Latitud",0);
-
-
         dlongi = longit;
         dlati = lati;
         LatLng buscar = new LatLng(dlati, dlongi);

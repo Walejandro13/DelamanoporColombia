@@ -8,13 +8,119 @@
     tools:context="com.andorid.proenandroid.delamanoporcolombia.AgenttActivity"
     tools:showIn="@layout/activity_agentt">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:id="@+id/tvnc1"
+            android:gravity="left"
+            android:layout_below="@+id/tvnc3"
+            android:layout_alignEnd="@+id/tvnc3"
+            android:layout_margin="5dp" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:id="@+id/info2"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Información"
+        android:id="@+id/tvnc2"
+        android:gravity="right"
+        android:layout_below="@+id/frame1"
+        android:layout_toEndOf="@+id/section_label"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold|italic" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Información"
+        android:id="@+id/tvnc3"
+        android:gravity="right"
+        android:layout_below="@+id/tvnc2"
+        android:layout_toEndOf="@+id/section_label"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        />
 
-        android:text="@string/large_text" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvnc1"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Telefono:"
+            android:id="@+id/tvnc4"
+            android:gravity="right"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Direccion:"
+            android:id="@+id/tvnc5"
+            android:gravity="right"
+            android:layout_below="@+id/tvnc4"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Pagina Web"
+            android:id="@+id/tvnc6"
+            android:gravity="right"
+            android:layout_below="@+id/tvnc5"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="tv_tf"
+            android:id="@+id/tv_tf"
+
+            android:layout_marginStart="78dp"
+            android:layout_alignBottom="@+id/tvnc4"
+            android:layout_toEndOf="@+id/tvnc5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="tv_dir"
+            android:id="@+id/tv_dir"
+            android:layout_alignBaseline="@+id/tvnc5"
+            android:layout_alignBottom="@+id/tvnc5"
+            android:layout_alignStart="@+id/tv_tf" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="tv_corr"
+            android:id="@+id/tv_corr"
+            android:layout_alignBottom="@+id/tvnc6"
+            android:layout_alignStart="@+id/tv_dir"
+            android:layout_alignParentEnd="false" />
+    </RelativeLayout>
+    </RelativeLayout>
+
 
 
 

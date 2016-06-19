@@ -268,7 +268,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(this,AgentActivity.class);
+        Intent intent = new Intent(this,ListAgentActivity.class);
         switch (v.getId()){
             case (R.id.frag_med):
                 intent.setAction("Medellin");
