@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -65,10 +67,9 @@ public class AgenttActivity extends AppCompatActivity {
 
                 intent.setAction("Agencia 1");
                 startActivity(intent);
-
                 //TODO segun los casos asignar latitud y longitud para enviar al mapa
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                       // .setAction("Action", null).show();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -100,6 +101,20 @@ public class AgenttActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /***@Override
+    public void onBackPressed() {
+        x=0;
+        Intent intent = new Intent(this,ListAgentActivity.class);
+
+                intent.setAction("Medellin");
+
+                startActivity(intent);
+
+
+
+    }*/
+
+
     public void getDatos(){
         //Todo mandar nombre y demas datos en el intent
         x=1;
@@ -113,10 +128,11 @@ public class AgenttActivity extends AppCompatActivity {
 
         ima= getIntent().getIntExtra("Image",R.drawable.fondo1);
 
-//        mtoolbar.setBackgroundResource(ima);
-       /* info=nom+"\n"+agencias[agen].getDescrip()+"\n Página web:"
-                +agencias[agen].getCorreo()+ "\n Dirección: "+ agencias[agen].getDireccion()+
-                "\n"+(agencias[agen].getTelefono()+" ");*/
+        mtoolbar.setBackgroundResource(ima);
+        info=nom+"\n"+des +"\n Página web:"+ web + "\n"+
+                "Telefono:"+ tel +"\n Dirección: "+ dir;
+
+
 
     }
 }

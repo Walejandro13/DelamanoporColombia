@@ -1,8 +1,13 @@
 package com.andorid.proenandroid.delamanoporcolombia;
 
 import android.Manifest;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
@@ -11,6 +16,8 @@ import android.os.Bundle;
 import java.lang.Math;
 
 import android.location.LocationListener;
+import android.support.v4.app.TaskStackBuilder;
+import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,6 +46,8 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
     private double dlongi, dlati;
     private int y;
     private LatLng loc;
+    private NotificationCompat.Builder mBuilder  = null;
+    private int z;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +110,8 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
                     double menor=60000, menorlon=1000, d =0, menorla=0;
                     String noma = null;
                     double r = 6378.7;
+
+
                     for (int i=0;i<agencias.length;i++){
 
                         d=r*Math.acos( Math.sin( agencias[i].getLati() )* Math.sin ( location.getLatitude()) +
@@ -111,15 +122,57 @@ public class MapsAgenActivity extends FragmentActivity implements OnMapReadyCall
                             noma=agencias[i].getNombre();
                             menorlon=agencias[i].getLongi();
                             menor  = d;
+                            z=i;
+
                         }
 
                     }
+                    Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                            R.mipmap.ic_launcher);
+                    NotificationCompat.Builder mBuilder2 =
+                            (NotificationCompat.Builder) new NotificationCompat.Builder(MapsAgenActivity.this)
+                                    .setContentTitle("De la mano por Colombia")
+                                    .setTicker("Agencias de Turismo").setSmallIcon(R.drawable.icono)
+                                    .setContentText(noma)
+                                    .setLargeIcon(Bitmap.createScaledBitmap(icon, 64, 64, false));
+
+                    Intent resultIntent = new Intent(MapsAgenActivity.this, AgenttActivity.class);
+                    resultIntent.putExtra("Nombre", agencias[z].getNombre());
+                    resultIntent.putExtra("Longitud",agencias[z].getLongi());
+                    resultIntent.putExtra("Latitud",agencias[z].getLati());
+                    resultIntent.putExtra("Image",agencias[z].getIdImage());
+                    resultIntent.putExtra("Descrip",agencias[z].getDescrip());
+                    resultIntent.putExtra("Tel",agencias[z].getTelefono()+"");
+                    resultIntent.putExtra("Web",agencias[z].getCorreo());
+                    resultIntent.putExtra("Dir",agencias[z].getDireccion());
+                    // The stack builder object will contain an artificial back stack for the
+                    // started Activity.
+                    // This ensures that navigating backward from the Activity leads out of
+                        // your application to the Home screen.
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(MapsAgenActivity.this);
+                    // Adds the back stack for the Intent (but not the Intent itself)
+                    stackBuilder.addParentStack(HomeActivity.class);
+                    // Adds the Intent that starts the Activity to the top of the stack
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder2.setContentIntent(resultPendingIntent);
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+                    mNotificationManager.notify(10, mBuilder2.build());
+
                     Toast.makeText(
                             MapsAgenActivity.this,
                             "La agencia mas cercana es:\n" +
                                     noma,
                             Toast.LENGTH_LONG).show();
                     loc= new LatLng(menorla,menorlon);
+
+
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
                 }
             }

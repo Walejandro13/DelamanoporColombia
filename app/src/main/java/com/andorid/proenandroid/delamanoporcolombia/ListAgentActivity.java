@@ -19,6 +19,7 @@ import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getMedellin;
 import static com.andorid.proenandroid.delamanoporcolombia.Agencias.getSantaMarta;
 import static com.andorid.proenandroid.delamanoporcolombia.AgenttActivity.x;
 
+
 public class ListAgentActivity extends ListActivity {
 
     private Agencia[] agencias;
@@ -94,7 +95,7 @@ public class ListAgentActivity extends ListActivity {
         // Hacer algo cuando un elemento de la lista es seleccionado
         TextView textoTitulo = (TextView) view.findViewById(R.id.textView_superior);
 
-        CharSequence texto = "Seleccionado: " + textoTitulo.getText();
+        CharSequence texto = "Has seleccionado: " + textoTitulo.getText();
         Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(ListAgentActivity.this,AgenttActivity.class);
 
@@ -103,7 +104,7 @@ public class ListAgentActivity extends ListActivity {
         intent.putExtra("Latitud",agencias[posicion].getLati());
         intent.putExtra("Image",agencias[posicion].getIdImage());
         intent.putExtra("Descrip",agencias[posicion].getDescrip());
-        intent.putExtra("Tel",agencias[posicion].getTelefono());
+        intent.putExtra("Tel",agencias[posicion].getTelefono()+"");
         intent.putExtra("Web",agencias[posicion].getCorreo());
         intent.putExtra("Dir",agencias[posicion].getDireccion());
 

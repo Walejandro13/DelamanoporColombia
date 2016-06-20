@@ -42,6 +42,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,6 +50,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URI;
+import static com.andorid.proenandroid.delamanoporcolombia.AgenttActivity.x;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,  GoogleApiClient.ConnectionCallbacks,
@@ -79,6 +81,7 @@ public class HomeActivity extends AppCompatActivity
     /* Indica si debemos resolver automáticamente ConnectionResults cuando sea posible */
     private boolean mShouldResolve = false;
     private NavigationView navigationView;
+    private Menu mMenu;
     private ProgressDialog connectionProgressDialog;
     private ImageView imgView;
     private FrameLayout med,bog,cali,cart,sant;
@@ -191,7 +194,7 @@ public class HomeActivity extends AppCompatActivity
             // intente conectar en el futuro con ella automáticamente.
 
             if (mGoogleApiClient.isConnected()) {
-                //Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+                Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 
                 signOut();
             }
@@ -267,7 +270,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-
+        x=0;
         Intent intent = new Intent(this,ListAgentActivity.class);
         switch (v.getId()){
             case (R.id.frag_med):
@@ -443,7 +446,7 @@ public class HomeActivity extends AppCompatActivity
             // navigationView.getMenu().findItem(R.id.action_disconect).setVisible(true);
 
             navigationView.getMenu().findItem(R.id.sign_in_button).setVisible(false);
-            // findViewById(R.id.action_disconect).setVisibility(View.VISIBLE);
+            //mMenu.findViewById(R.id.action_disconect).setVisibility(View.VISIBLE);
         } else {
             // Muestra el mensaje de no identificado
            // mStatus.setText("Sin registrar");

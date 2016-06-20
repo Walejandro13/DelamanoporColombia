@@ -38,13 +38,12 @@ public class PerfilActivity extends AppCompatActivity {
         Name.setText(prefs.getString("nameUser","Estas como invitado"));
         Email.setText(prefs.getString("emailUser","Estas como invitado"));
 
-        //HttpURLConnection conn = null;
 
 
-        Uri imgUri= Uri.parse(prefs.getString("imageUser",null)  );
-        profileImage.setImageURI(null);
-        profileImage.setImageURI(imgUri);
-        String url= prefs.getString("imageUser",null);
+//        Uri imgUri= Uri.parse(prefs.getString("imageUser",null)  );
+  //      profileImage.setImageURI(null);
+    //    profileImage.setImageURI(imgUri);
+      //  String url= prefs.getString("imageUser",null);
 
         //profileImage.setImageBitmap(GetURLBitmap(url)));
 
